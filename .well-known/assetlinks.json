@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.dubsector.videoshrinker",
+      "sha256_cert_fingerprints": [
+        "9A:05:C8:58:1F:69:A4:C3:E7:5F:AA:71:27:BF:8D:58:5D:C3:52:32:BC:58:90:BD:5B:9D:B5:B6:D7:9A:DE:3B"
+      ]
+    }
+  }
+]
