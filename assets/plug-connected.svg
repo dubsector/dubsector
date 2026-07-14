@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" role="img" aria-label="Plug connected — enter dubsector.dev">
+  <defs>
+    <filter id="glowBlur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <linearGradient id="prong2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e4c675"/>
+      <stop offset="1" stop-color="#b9954a"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="480" height="280" rx="20" fill="#12151c"/>
+
+  <!-- outlet plate -->
+  <rect x="178" y="24" width="150" height="216" rx="18" fill="#e9e4da"/>
+  <rect x="198" y="48" width="110" height="168" rx="14" fill="#f4f0e6"/>
+
+  <!-- glow behind the plug, pulsing -->
+  <circle cx="253" cy="132" r="46" fill="#5fd0ff" filter="url(#glowBlur)">
+    <animate attributeName="opacity" values="0.35;0.85;0.35" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- cable -->
+  <path d="M158 200 C 100 220, 70 190, 40 236" fill="none" stroke="#1c1f24" stroke-width="14" stroke-linecap="round"/>
+
+  <!-- plug body, seated over the socket -->
+  <rect x="206" y="86" width="94" height="94" rx="18" fill="#2b2f36"/>
+  <rect x="206" y="86" width="94" height="94" rx="18" fill="none" stroke="#3a3f47" stroke-width="1.5"/>
+
+  <!-- faint prong hint peeking at the seam -->
+  <rect x="238" y="76" width="8" height="14" rx="2" fill="url(#prong2)" opacity="0.85"/>
+  <rect x="260" y="76" width="8" height="14" rx="2" fill="url(#prong2)" opacity="0.85"/>
+
+  <text x="240" y="266" text-anchor="middle" font-family="-apple-system, Segoe UI, Roboto, sans-serif" font-size="17" font-weight="600" fill="#e6edf3">
+    enter dubsector.dev &#8594;
+  </text>
+</svg>
