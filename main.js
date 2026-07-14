@@ -10,7 +10,8 @@ const canvas = document.getElementById('scene');
 const OUTLET_POS = new THREE.Vector3(0.42, 0.05, 0);
 const REST_POS = new THREE.Vector3(-0.55, -0.08, 0.6);
 const IDLE_POS = new THREE.Vector3(-0.55, -0.08, 0.6);
-const ALIGN_RADIUS = 0.16;
+const ALIGN_RADIUS = 0.22;
+const CAPTURE_RADIUS = 0.42; // wider magnetic pull zone that funnels aim toward center
 const CONNECT_Z = 0.23; // plugGroup.z when the body's front face is flush with the outlet face
 const INSERT_SPEED = 0.85; // world units / sec
 const RETRACT_LERP = 4.5; // per second, exponential
@@ -339,9 +340,23 @@ function loop() {
       targetXY.y = IDLE_POS.y;
     }
 
+    // magnetic assist: once the raw pointer target is generally near the socket,
+    // pull it toward dead-center so small aiming misses (e.g. slightly too high)
+    // still land — mirrors how a real faceplate funnels the plug in.
+    let effTargetX = targetXY.x;
+    let effTargetY = targetXY.y;
+    if (dragging) {
+      const targetDist = Math.hypot(targetXY.x - OUTLET_POS.x, targetXY.y - OUTLET_POS.y);
+      if (targetDist < CAPTURE_RADIUS) {
+        const pull = 1 - targetDist / CAPTURE_RADIUS;
+        effTargetX = THREE.MathUtils.lerp(targetXY.x, OUTLET_POS.x, pull * 0.8);
+        effTargetY = THREE.MathUtils.lerp(targetXY.y, OUTLET_POS.y, pull * 0.8);
+      }
+    }
+
     const followK = 1 - Math.exp(-FOLLOW_LERP * dt);
-    plugPos.x += (targetXY.x - plugPos.x) * followK;
-    plugPos.y += (targetXY.y - plugPos.y) * followK;
+    plugPos.x += (effTargetX - plugPos.x) * followK;
+    plugPos.y += (effTargetY - plugPos.y) * followK;
 
     const planarDist = Math.hypot(plugPos.x - OUTLET_POS.x, plugPos.y - OUTLET_POS.y);
     if (dragging && planarDist < ALIGN_RADIUS) {
